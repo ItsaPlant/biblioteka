@@ -1,4 +1,3 @@
-from typing import Text
 from app import db
 
 tags = db.Table('authors',
