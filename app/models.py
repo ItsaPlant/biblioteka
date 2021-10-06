@@ -1,6 +1,6 @@
 from app import db
 
-tags = db.Table('authors',
+authors_to_books = db.Table('authors',
     db.Column('author_id', db.Integer, db.ForeignKey('author.id'), primary_key=True),
     db.Column('book_id', db.Integer, db.ForeignKey('book.id'), primary_key=True)
 )
@@ -19,7 +19,7 @@ class Author(db.Model):
     name = db.Column(db.String(200))
     books = db.Column(db.Text)
 
-    bibliography = db.relationship('Book', secondary=tags, lazy='subquery',
+    bibliography = db.relationship('Book', secondary=authors_to_books, lazy='subquery',
         backref=db.backref('authors', lazy=True))
     def __str__(self):
         return f"<Author {self.id} {self.name} {self.surname}>"
