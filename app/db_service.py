@@ -4,7 +4,7 @@ class Db_book():
     def __init__(self):
         super().__init__()
 
-    def get_books(self):
+    def get_books(self):#works
         data = models.Book.query.all()
         dict_list=[]
         for b in data:
@@ -17,7 +17,7 @@ class Db_book():
             dict_list.append(d)
         return dict_list
 
-    def get_book(self, title):
+    def get_book(self, title):#works
         data = models.Book.query.filter_by(title=title).first()
         data_dict = {
             'id': data.id,
@@ -27,14 +27,14 @@ class Db_book():
         }
         return data_dict
 
-    def post_book(self, author, title, status):
+    def post_book(self, author, title, status):#works
         u = models.Book(author=author, title=title, status=status)
         db.session.add(u)
         db.session.commit()
 
-    def put_book_update(self, author, title, status):
-        data = self.get_book(title)
-        u = models.Book(author=author, title=title, ststus=status)
+    def put_book_update(self, author, title, status):#works
+        data = models.Book.query.filter_by(title=title).first()
+        u = models.Book(author=author, title=title, status=status)
         db.session.delete(data)
         db.session.add(u)
         db.session.commit()
@@ -45,7 +45,7 @@ class Db_author():
     def __init__(self):
         super().__init__()
     
-    def get_authors(self):
+    def get_authors(self):#works
         data = models.Author.query.all()
         dict_list=[]
         for a in data:
@@ -57,7 +57,7 @@ class Db_author():
             dict_list.append(d)
         return dict_list
 
-    def get_author(self, name):
+    def get_author(self, name):#works
         data = models.Author.query.filter_by(name=name).first()
         data_dict = {
             'id': data.id,
@@ -66,13 +66,13 @@ class Db_author():
         }
         return data_dict
 
-    def post_author(self, name, books):
+    def post_author(self, name, books):#works
         u = models.Author(name=name, books=books)
         db.session.add(u)
         db.session.commit()
 
-    def post_author_update(self, name, books):
-        data = self.get_author(name)
+    def put_author_update(self, name, books):#works
+        data = models.Author.query.filter_by(name=name).first()
         u = models.Author(name=name, books=books)
         db.session.delete(data)
         db.session.add(u)
