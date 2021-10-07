@@ -1,16 +1,16 @@
-from app import app, db
-from models import Book, Author
+from app import app
+from db_service import book, author
+from flask import jsonify, abort, make_response, request
 
-app.route("/api/v1/lib/", methods=["GET"])
+@app.route("/api/v1/lib/", methods=["GET"]) #nie działa, błąd importu(?)
 def lib_list_api_v1():
-    return Book.get_books()
+    return book.get_books()
 
 @app.route("/api/v1/lib/", methods=["POST"])
-def add_book():
+def post_book():
     if not request.json or not 'title' in request.json:
         abort(400)
     post = {
-        'id': posts.all()[-1]['id'] + 1,
         'title': request.json['title'],
         'description': request.json.get('description', ""),
         'done': False
