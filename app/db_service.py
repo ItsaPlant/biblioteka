@@ -1,4 +1,4 @@
-from app import db
+from app import db, models
 from models import Book, Author
 
 class Db_book(Book):
@@ -33,7 +33,7 @@ class Db_book(Book):
         db.session.add(u)
         db.session.commit()
 
-    def post_book_update(self, author, title, status):
+    def put_book_update(self, author, title, status):
         data = self.get_book(title)
         u = Book(author=author, title=title, ststus=status)
         db.session.delete(data)

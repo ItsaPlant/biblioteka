@@ -1,4 +1,4 @@
-from app import app
+from app import app, db_service
 from db_service import book, author
 from flask import jsonify, abort, make_response, request
 
@@ -12,8 +12,8 @@ def post_book():
         abort(400)
     post = {
         'title': request.json['title'],
-        'description': request.json.get('description', ""),
-        'done': False
+        'author': request.json.get('author', ""),#dlaczego tu jest inna struktura?
+        'status': request.json['status']
     }
     posts.create(post)
     return jsonify({'post': post})
