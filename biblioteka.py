@@ -7,7 +7,7 @@ def make_shell_context():
     return {
         "db": db,
         "Book": Book,
-        "Author": Author,
-        "book": book,
-        "author": author
+        "Author": Author#,
+        # "book": book,
+        # "author": author
     }
