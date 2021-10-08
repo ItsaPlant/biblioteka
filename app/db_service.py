@@ -1,31 +1,31 @@
 from app import db, models
 
-class Db_book():
+class DbBook():
     def __init__(self):
-        super().__init__()
+        pass
 
     def get_books(self):#works
         data = models.Book.query.all()
-        dict_list=[]
-        for b in data:
-            d={
-            'id': b.id,
-            'author': b.author,
-            'title': b.title,
-            'status': b.status
-            }
-            dict_list.append(d)
-        return dict_list
+        # dict_list=[]
+        # for b in data:
+        #     d={
+        #     'id': b.id,
+        #     'author': b.author,
+        #     'title': b.title,
+        #     'status': b.status
+        #     }
+        #     dict_list.append(d)
+        return data #dict_list
 
     def get_book(self, title):#works
         data = models.Book.query.filter_by(title=title).first()
-        data_dict = {
-            'id': data.id,
-            'author': data.author,
-            'title': data.title,
-            'status': data.status
-        }
-        return data_dict
+        # data_dict = {
+        #     'id': data.id,
+        #     'author': data.author,
+        #     'title': data.title,
+        #     'status': data.status
+        # }
+        return data #data_dict
 
     def post_book(self, author, title, status):#works
         u = models.Book(author=author, title=title, status=status)
@@ -39,32 +39,32 @@ class Db_book():
         db.session.add(u)
         db.session.commit()
 
-book = Db_book()
+book = DbBook()
 
-class Db_author():
+class DbAuthor():
     def __init__(self):
-        super().__init__()
+        pass
     
     def get_authors(self):#works
         data = models.Author.query.all()
-        dict_list=[]
-        for a in data:
-            d={
-            'id': a.id,
-            'author': a.name,
-            'title': a.books
-            }
-            dict_list.append(d)
-        return dict_list
+        # dict_list=[]
+        # for a in data:
+        #     d={
+        #     'id': a.id,
+        #     'author': a.name,
+        #     'title': a.books
+        #     }
+        #     dict_list.append(d)
+        return data #dict_list
 
     def get_author(self, name):#works
         data = models.Author.query.filter_by(name=name).first()
-        data_dict = {
-            'id': data.id,
-            'author': data.name,
-            'title': data.books
-        }
-        return data_dict
+        # data_dict = {
+        #     'id': data.id,
+        #     'author': data.name,
+        #     'title': data.books
+        # }
+        return data #data_dict
 
     def post_author(self, name, books):#works
         u = models.Author(name=name, books=books)
@@ -78,4 +78,4 @@ class Db_author():
         db.session.add(u)
         db.session.commit()
 
-author = Db_author()
+author = DbAuthor()

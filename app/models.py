@@ -12,7 +12,7 @@ class Book(db.Model):
     status = db.Column(db.String(200))
 
     def __str__(self):
-        return f"id:{self.id}, {self.title} - {self.author}, {self.status}>"
+        return f"<id:{self.id}, {self.title} - {self.author}, {self.status}>"
 
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
