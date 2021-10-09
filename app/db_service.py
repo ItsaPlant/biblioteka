@@ -39,7 +39,7 @@ class DbBook():
         db.session.add(u)
         db.session.commit()
 
-book = DbBook()
+book = DbBook().to_dict()
 
 class DbAuthor():
     def __init__(self):
