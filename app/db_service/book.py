@@ -1,19 +1,18 @@
 from app import db, models
-from app.base_model import BaseModel
 
 class DbBook():
-    def __init__(self, model): 
+    def __init__(self, model):
         self.model = model
 
     def get_books(self):#works
         data = self.model.query.all()
         #data = self.model._dict(data)
-        return data.to_dict()
+        return data
 
     def get_book(self, id):#works
         data = self.model.query.filter_by(id=id).first()
         data = self.model._dict(data)
-        return data 
+        return data
 
     def post_book(self, author, title, status):#works
         book = self.model(author=author, title=title, status=status)
