@@ -36,10 +36,6 @@ class Author(db.Model):
         backref=db.backref('authors', lazy=True))#to można zastąpić db.relationship w klasie book
 
     def _dict(obj):
-        return {c.key: getattr(obj, c.key)
-                for c in inspect(obj).mapper.column_attrs}
-
-    def _dict(obj):
         dict_list = []
         for o in obj:
             dict_list.append(
