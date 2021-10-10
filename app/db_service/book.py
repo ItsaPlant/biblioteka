@@ -1,28 +1,28 @@
-from flask_sqlalchemy import model
+#from flask_sqlalchemy import model
 from app import db, models
 
 class DbBook():
     def __init__(self, model): 
-        pass
+        self.model = model
 
     def get_books(self):#works
-        data = model.query.all()
-        data = model._dict(data)
+        data = self.model.query.all()
+        data = self.model._dict(data)
         return data
 
     def get_book(self, id):#works
-        data = model.query.filter_by(id=id).first()
-        data = model._dict(data)
+        data = self.model.query.filter_by(id=id).first()
+        data = self.model._dict(data)
         return data 
 
     def post_book(self, author, title, status):#works
-        book = model(author=author, title=title, status=status)
+        book = self.model(author=author, title=title, status=status)
         db.session.add(book)
         db.session.commit()
 
     def put_book_update(self, id, author, title, status):#works
-        data = model.query.filter_by(id=id).first()
-        book = model(author=author, title=title, status=status)
+        data = self.model.query.filter_by(id=id).first()
+        book = self.model(author=author, title=title, status=status)
         db.session.delete(data)
         db.session.add(book)
         db.session.commit()
