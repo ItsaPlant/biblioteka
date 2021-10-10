@@ -1,10 +1,12 @@
-from app import app, models, db_service
+from app import app, models
+from app.db_service.book import book as db_book
+from app.db_service.author import author as db_author
 from flask import jsonify, abort, make_response, request
 
 ###book - libary -> /api/v1/lib/
 @app.route("/api/v1/lib/", methods=["GET"])#works
 def lib_list_api_v1():
-    return jsonify(db_service.book.get_books())
+    return jsonify(db_book.get_books())
 
 @app.route("/api/v1/lib/", methods=["POST"])
 def post_book():
@@ -15,19 +17,19 @@ def post_book():
         'author': request.json['author'], #dlaczego tu oryginalnie jest inna struktura?
         'status': request.json['status']
     }
-    db_service.book.post_book(author=book['title'], title=book['title'], status=book['status'])
+    db_book.post_book(author=book['title'], title=book['title'], status=book['status'])
     return jsonify({'book': book})
 
-@app.route("/api/v1/lib/<title>", methods=["GET"])#works
-def get_book(title):
-    book = db_service.book.get_book(title)
+@app.route("/api/v1/lib/<int:id>", methods=["GET"])#works
+def get_book(id):
+    book = db_book.get_book(id)
     if not book:
         abort(404)
     return jsonify({'book': book})
 
-@app.route("/api/v1/lib/<title>", methods=["PUT"])#works
-def put_book_update(title):
-    book = db_service.book.get_book(title)
+@app.route("/api/v1/lib/<int:id>", methods=["PUT"])#works
+def put_book_update(id):
+    book = db_book.get_book(id)
     if not book:
         abort(404)
     if not request.json:
@@ -44,13 +46,13 @@ def put_book_update(title):
         'author': data.get('author', book['author']),
         'status': data.get('status', book['status'])
     }
-    db_service.book.put_book_update(author=book['author'], title=book['title'], status=book['status'])
+    db_book.put_book_update(id, author=book['author'], title=book['title'], status=book['status'])
     return jsonify({'post': book})
 
 ###author - bibliography -> /api/v1/bibl/
 @app.route("/api/v1/bibl/", methods=["GET"])#works
 def bibl_list_api_v1():
-    return jsonify(db_service.author.get_authors())
+    return jsonify(db_author.get_authors())
 
 @app.route("/api/v1/bibl/", methods=["POST"])#works
 def post_author():
@@ -60,19 +62,19 @@ def post_author():
         'title': request.json['title'],
         'author': request.json['author'] #dlaczego tu oryginalnie jest inna struktura?
     }
-    db_service.author.post_author(name=auth['author'], books=auth['title'])
+    db_author.post_author(name=auth['author'], books=auth['title'])
     return jsonify({'author': auth})
 
-@app.route("/api/v1/bibl/<name>", methods=["GET"])#works
-def get_author(name):
-    auth = db_service.author.get_author(name)
+@app.route("/api/v1/bibl/<int:id>", methods=["GET"])#works
+def get_author(id):
+    auth = db_author.get_author(id)
     if not auth:
         abort(404)
     return jsonify({'author': auth})
 
-@app.route("/api/v1/bibl/<name>", methods=["PUT"])#works
-def put_author_update(name):
-    auth = db_service.author.get_author(name)
+@app.route("/api/v1/bibl/<int:id>", methods=["PUT"])#works
+def put_author_update(id):
+    auth = db_author.get_author(id)
     if not auth:
         abort(404)
     if not request.json:
@@ -87,7 +89,7 @@ def put_author_update(name):
         'title': data.get('title', auth['title']),
         'author': data.get('author', auth['author'])
     }
-    db_service.author.put_author_update(name=auth['author'], books=auth['title'])
+    db_author.put_author_update(id, name=auth['author'], books=auth['title'])
     return jsonify({'author': auth})
 
 ###errorhadler

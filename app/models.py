@@ -7,9 +7,6 @@ authors_to_books = db.Table('authors',
 )
 
 class Book(db.Model):
-    def __init__(self):
-        pass 
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), index=True)
     author = db.Column(db.String(200))
