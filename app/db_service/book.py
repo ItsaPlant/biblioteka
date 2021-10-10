@@ -1,5 +1,5 @@
-#from flask_sqlalchemy import model
 from app import db, models
+from app.base_model import BaseModel
 
 class DbBook():
     def __init__(self, model): 
@@ -7,8 +7,8 @@ class DbBook():
 
     def get_books(self):#works
         data = self.model.query.all()
-        data = self.model._dict(data)
-        return data
+        #data = self.model._dict(data)
+        return data.to_dict()
 
     def get_book(self, id):#works
         data = self.model.query.filter_by(id=id).first()
@@ -27,4 +27,4 @@ class DbBook():
         db.session.add(book)
         db.session.commit()
 
-book = DbBook(model=models.Book)
+db_book = DbBook(model=models.Book)

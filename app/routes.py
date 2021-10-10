@@ -1,6 +1,6 @@
 from app import app, models
-from app.db_service.book import book as db_book
-from app.db_service.author import author as db_author
+from app.db_service.book import db_book
+from app.db_service.author import db_author
 from flask import jsonify, abort, make_response, request
 
 ###book - libary -> /api/v1/lib/
