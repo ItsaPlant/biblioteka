@@ -1,5 +1,5 @@
 ###BASE MODEL APPROACH
-from app import db
+from app import app, db
 from flask import json
 from sqlalchemy.orm.attributes import QueryableAttribute
 

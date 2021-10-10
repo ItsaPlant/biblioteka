@@ -1,3 +1,4 @@
+from operator import mod
 from app import db, models
 
 class DbBook():
@@ -6,26 +7,13 @@ class DbBook():
 
     def get_books(self):#works
         data = models.Book.query.all()
-        # dict_list=[]
-        # for b in data:
-        #     d={
-        #     'id': b.id,
-        #     'author': b.author,
-        #     'title': b.title,
-        #     'status': b.status
-        #     }
-        #     dict_list.append(d)
-        return data #dict_list
+        data = models.Book._dict(data)
+        return data
 
     def get_book(self, title):#works
         data = models.Book.query.filter_by(title=title).first()
-        # data_dict = {
-        #     'id': data.id,
-        #     'author': data.author,
-        #     'title': data.title,
-        #     'status': data.status
-        # }
-        return data #data_dict
+        data = models.Book._dict(data)
+        return data 
 
     def post_book(self, author, title, status):#works
         u = models.Book(author=author, title=title, status=status)
@@ -39,7 +27,7 @@ class DbBook():
         db.session.add(u)
         db.session.commit()
 
-book = DbBook().to_dict()
+book = DbBook()
 
 class DbAuthor():
     def __init__(self):
@@ -47,24 +35,13 @@ class DbAuthor():
     
     def get_authors(self):#works
         data = models.Author.query.all()
-        # dict_list=[]
-        # for a in data:
-        #     d={
-        #     'id': a.id,
-        #     'author': a.name,
-        #     'title': a.books
-        #     }
-        #     dict_list.append(d)
-        return data #dict_list
+        data = models.Author._dict(data)
+        return data
 
     def get_author(self, name):#works
         data = models.Author.query.filter_by(name=name).first()
-        # data_dict = {
-        #     'id': data.id,
-        #     'author': data.name,
-        #     'title': data.books
-        # }
-        return data #data_dict
+        data = models.Author._dict(data)
+        return data
 
     def post_author(self, name, books):#works
         u = models.Author(name=name, books=books)
