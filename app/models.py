@@ -29,7 +29,7 @@ class Book(BaseModel):
 
 book = Book()
 
-class Author(db.Model):
+class Author(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     books = db.Column(db.Text)

@@ -1,19 +1,17 @@
 from app import db, models
 
-
 class DbAuthor():
     def __init__(self, model):
         self.model = model
     
     def get_authors(self):#works
         data = self.model.query.all()
-        data = self.model._dict(data)
+        data = [d.to_dict() for d in data]
         return data
 
     def get_author(self, id):#works
         data = self.model.query.filter_by(id=id).first()
-        data = self.model._dict(data)
-        return data
+        return data.to_dict()
 
     def post_author(self, name, books):#works
         auth = self.model(name=name, books=books)
